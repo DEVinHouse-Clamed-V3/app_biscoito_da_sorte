@@ -1,63 +1,65 @@
-import {useState, useEffect} from 'react'
-import { StatusBar, StyleSheet, Text, View, SafeAreaView, Button, Alert, } from 'react-native';
-import LottieView  from 'lottie-react-native'
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 
-const mensagems = [
-  'mensagem 1',
-  'mensagem 2',
-  'mensagem 3',
-  'mensagem 4',
-  'mensagem 5',
-]
+import Apresentacao from "./src/pages/Apresentacao";
+import Login from "./src/pages/Login";
+import Sobre from "./src/pages/Sobre";
+import Biscoito from "./src/pages/Biscoito";
+
+const Stack = createStackNavigator()
 
 export default function App() {
-  
-  const [mensagemSelecionada, setMensagemSelecionada] =  useState('')
-  const [quantidadeCliqueBotao, setQuantidadeCliqueBotao ] = useState(0)
-
-  function exibirMensagem(){
-      const numeroAleatorio = Math.floor(Math.random() * 5)
-
-      setMensagemSelecionada(mensagems[numeroAleatorio])
-
-      setQuantidadeCliqueBotao(quantidadeCliqueBotao + 1)
-  }
-
-  useEffect(() => {
-    Alert.alert("Bem vindo")
-  }, []) // executa única vez
-
-  useEffect(() => {
-    if(quantidadeCliqueBotao === 5) {
-        Alert.alert("Acabaram os biscoitos")
-    }
-  }, [quantidadeCliqueBotao])
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
+    <NavigationContainer>
+      <Stack.Navigator>
 
-      <Text>{mensagemSelecionada}</Text>
+        <Stack.Screen
+          name="Apresentacao"
+          component={Apresentacao}
+          options={
+            {
+              header: () => <></>
+            }
+          }
+        />
 
-      <Text>Numero de cliques: {quantidadeCliqueBotao}</Text>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={
+            {
+              header: () => <></>
+            }
+          }
+        />
 
-      <LottieView 
-        autoPlay
-        source={require('./assets/animacao.json')}
-        style={{width: 200, height: 200}}
-      />
+      <Stack.Screen
+          name="Sobre"
+          component={Sobre}
+          options={
+            {
+              headerStyle: {
+                backgroundColor: '#f7e4b3'
+              }
+            }
+          }
+        />
 
-      <Button onPress={exibirMensagem} title='Quebrar biscoito' />
+      <Stack.Screen
+          name="Test"
+          component={Biscoito}
+          options={
+            {
+              headerStyle: {
+                backgroundColor: '#f7e4b3'
+              }
+            }
+          }
+        />
 
-    </SafeAreaView>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
