@@ -14,7 +14,7 @@ export default function App() {
   return (
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName="Apresentacao">
+      <Stack.Navigator initialRouteName="Home">
 
       <Stack.Screen
           name="Sobre"

@@ -24,9 +24,7 @@ export default function Login({navigation}) {
       </View>
 
       <View style={styles.bottomSection}>
-        
-       
-
+      
         <TextInput
           placeholder="Email"
           placeholderTextColor="#8b4513" // Marrom claro para o placeholder
