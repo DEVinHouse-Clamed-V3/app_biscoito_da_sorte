@@ -5,6 +5,7 @@ import Apresentacao from "./src/pages/Apresentacao";
 import Login from "./src/pages/Login";
 import Sobre from "./src/pages/Sobre";
 import Biscoito from "./src/pages/Biscoito";
+import Home from "./src/pages/Home";
 
 const Stack = createStackNavigator()
 
@@ -12,7 +13,20 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+
+      <Stack.Navigator initialRouteName="Apresentacao">
+
+      <Stack.Screen
+          name="Sobre"
+          component={Sobre}
+          options={
+            {
+              headerStyle: {
+                backgroundColor: '#f7e4b3'
+              }
+            }
+          }
+        />
 
         <Stack.Screen
           name="Apresentacao"
@@ -34,17 +48,6 @@ export default function App() {
           }
         />
 
-      <Stack.Screen
-          name="Sobre"
-          component={Sobre}
-          options={
-            {
-              headerStyle: {
-                backgroundColor: '#f7e4b3'
-              }
-            }
-          }
-        />
 
       <Stack.Screen
           name="Test"
@@ -57,6 +60,11 @@ export default function App() {
             }
           }
         />
+
+        <Stack.Screen
+          name="Home"
+          component={Home}
+         />
 
       </Stack.Navigator>
     </NavigationContainer>
