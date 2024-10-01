@@ -1,5 +1,6 @@
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, SafeAreaView , Alert } from 'react-native';
 import {useState} from 'react'
+import { globalStyles } from '../global/styles';
 
 export default function Login({navigation}) {
 
@@ -28,7 +29,7 @@ export default function Login({navigation}) {
         <TextInput
           placeholder="Email"
           placeholderTextColor="#8b4513" // Marrom claro para o placeholder
-          style={styles.input}
+          style={globalStyles.input}
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
@@ -37,7 +38,7 @@ export default function Login({navigation}) {
         <TextInput
           placeholder="Password"
           placeholderTextColor="#8b4513" // Marrom claro para o placeholder
-          style={styles.input}
+          style={globalStyles.input}
           secureTextEntry={showPassword}
           value={password}
           onChangeText={setPassword}
@@ -83,15 +84,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingTop: 40,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#d2691e', // Borda marrom
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 20,
-    backgroundColor: '#fff', // Fundo branco nos inputs
-    color: '#8b4513', // Texto marrom
   },
   passwordRow: {
     flexDirection: 'row',

@@ -103,7 +103,7 @@ export default function Home() {
                 renderItem={({ item }) => (
                     <>
                     <TouchableOpacity style={styles.item} >
-                        <Text>#{item.mensagem}</Text>
+                        <Text>#{item.id}</Text>
                         <Image source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1450/1450139.png', width: 50, height: 50 }} />
                         <Text style={styles.itemText}>
                             {
