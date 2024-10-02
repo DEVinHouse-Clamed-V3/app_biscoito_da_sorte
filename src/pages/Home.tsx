@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { Text, Alert, ScrollView, FlatList, SafeAreaView, View, TouchableOpacity, StyleSheet, Image, Platform, TextInput } from "react-native"
+import { Text, Alert, ScrollView, FlatList, SafeAreaView, View, TouchableOpacity, StyleSheet, Image, Platform, TextInput, Button } from "react-native"
 import axios from 'axios'
 import LottieView from "lottie-react-native"
+import {useFocusEffect} from '@react-navigation/native'
 
 // GET -> lista informacoes
 // POST -> cadastrar um novo informacao
@@ -24,7 +25,7 @@ type Biscoito = {
     mensagem: string
 }
 
-export default function Home() {
+export default function Home({navigation}) {
 
     const [biscoitos, setBiscoitos] = useState<Biscoito[]>([])
     const [loading, setLoading] = useState(false)
@@ -47,21 +48,25 @@ export default function Home() {
     }, []) // dispara uma única vez
     */
 
-    useEffect(() => {
+    function navigateToForm() {
+        navigation.navigate('FormBiscoito')
+    }
+
+    useFocusEffect(() => {
         setLoading(true)
 
         axios
-            .get('http://192.168.0.37:3000/biscoitos')
+            .get(process.env.EXPO_PUBLIC_API_URL + '/biscoitos')
             .then((response) => {
-                setTimeout(() => {
+              
                     setLoading(false)
                     setBiscoitos(response.data)
-                }, 5000)
+               
             })
             .catch(() => {
                 Alert.alert("Não foi possivel obter a lista de biscoitos")
             })
-    }, [])
+    })
 
 
 
@@ -76,6 +81,8 @@ export default function Home() {
                 onChangeText={setSearch}
             />
 
+            <Button title="Novo biscoito" onPress={navigateToForm}/>
+ 
             <FlatList
                 ListEmptyComponent={() => (
                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>

@@ -4,41 +4,45 @@ import { useState } from "react";
 
 import { Picker } from '@react-native-picker/picker'
 import axios from 'axios'
+import { NavigationProp } from '@react-navigation/native'
 
-export default function FormBiscoito() {
+interface FormBiscoitoProps {
+    navigation: NavigationProp<any>
+}
 
+export default function FormBiscoito({ navigation }: FormBiscoitoProps) {
+    
     const [message, setMessage] = useState('')
     const [isSpecial, setIsSpecial] = useState(false)
     const [brand, setBrand] = useState('')
     const [prize, setPrize] = useState('0')
 
 
-    function handleSave(){
+    function handleSave() {
 
-        if(message === '') {
-            Alert.alert("Aviso","A mensagem é obrigatória")
-        } else if(isSpecial === true && brand === '') {
+        if (message === '') {
+            Alert.alert("Aviso", "A mensagem é obrigatória")
+        } else if (isSpecial === true && brand === '') {
             Alert.alert("Aviso", "A marca é obrigatória")
-        } else if (isSpecial === true && (Number(prize) <= 0  || isNaN(Number(prize)))) {
+        } else if (isSpecial === true && (Number(prize) <= 0 || isNaN(Number(prize)))) {
             Alert.alert("Aviso", "Valor do prêmio deve ser maior que 0")
         } else {
 
-            console.log("chegueiii")
-
-            axios.post('http://192.168.0.37:3000/biscoitos', {
+            axios.post(process.env.EXPO_PUBLIC_API_URL + '/biscoitos', {
                 mensagem: message,
                 especial: isSpecial,
                 premio: prize,
                 marca: brand
             })
-            .then(() => {
-                Alert.alert("Aviso", 'Cadastrado com sucesso')
-            })
-            .catch((error) => {
-                console.log(error)
-                Alert.alert("Error", 'Não foi possível cadastrar o biscoito')
-            })
-            
+                .then(() => {
+                    Alert.alert("Aviso", 'Cadastrado com sucesso')
+                    navigation.navigate("Home")
+                })
+                .catch((error) => {
+                    console.log(error)
+                    Alert.alert("Error", 'Não foi possível cadastrar o biscoito')
+                })
+
 
             // POST
             // /biscoitos
@@ -61,7 +65,7 @@ export default function FormBiscoito() {
 
             <View style={styles.switchContainer}>
                 <Text>É um biscoito especial ?</Text>
-                <Switch value={isSpecial} onValueChange={setIsSpecial} 
+                <Switch value={isSpecial} onValueChange={setIsSpecial}
                 /*trackColor={{
                     true: message === 'sorte' ? 'green' : 'false'
                 }} 
